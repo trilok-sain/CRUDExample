@@ -1,24 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import ViewComponent from './ViewComponent';
-import {
-  addContactAction,
-  deleteContactAction,
-  updateContactAction
-} from '../src/redux/action'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { blue, green } from '@material-ui/core/colors'
+import { Typography } from '@material-ui/core';
+const theme = createMuiTheme({
+  palette:{
+    primary:green,
+    secondary: blue
+  },
+  typography:{
+    fontSize: 20
+  }
+})
 
 function App(props) {
   return (
-    <ViewComponent  {...props}/>
+    <ThemeProvider theme={theme}>
+      <ViewComponent/>
+    </ThemeProvider>
   );
 } 
-const mapStateToProps = state => ({
-  selectedData: state.selectedData,
-  list: state.contactList,
-}) 
-const mapDispatchToProps = dispatch => ({
-  addContactAction : (data) => dispatch(addContactAction(data)),
-  deleteContactAction: (index) => dispatch(deleteContactAction(index)),
-  updateContactAction: (data, index) => dispatch(updateContactAction(data, index))
-})
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
